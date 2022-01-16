@@ -11,7 +11,8 @@ npm init
 ```
 npm run dev
 ```
-4. Point your browser to
+4. Point your browser to HTML addresses corresponding to different steps of the tutorial, such as:
+
 http://localhost:8080/tw1.1.html
 
 http://localhost:8080/tw1.2.html
