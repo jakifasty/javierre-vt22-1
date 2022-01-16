@@ -15,7 +15,11 @@ npm run dev
 
 http://localhost:8080/tw1.1.html
 
+http://localhost:8080/tw1.1-react.html
+
 http://localhost:8080/tw1.2.html
+
+http://localhost:8080/tw1.2-react.html
 
 http://localhost:8080/tw1.2.1.html
 
