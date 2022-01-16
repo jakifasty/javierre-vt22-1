@@ -11,9 +11,9 @@ describe("TW1.2 SummaryView", function() {
     this.timeout(200000);  // increase to allow debugging during the test run
     
 
-    it("UI test", function(){
+    it("SummaryView shows its people prop", function(){
         const div= createUI();
         render(<SummaryView people={4} ingredients={[]} />, div);
-        console.log(div);
+        assert.equal(div.firstElementChild.firstElementChild.firstChild.textContent, "4");
     });
 });

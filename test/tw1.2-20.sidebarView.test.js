@@ -17,10 +17,10 @@ describe("TW1.2 SidebarView", function() {
     before(function(){
         if(!SidebarView) this.skip();
     });
-    
-    it("UI test", function(){
+
+    it("SidebarView shows its number prop", function(){
         const div= createUI();
         render(<SidebarView number={4} dishes={[]}/>, div);
-        console.log(div);
+        console.log(div);  // FIXME
     });
 });
