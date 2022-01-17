@@ -8,7 +8,7 @@ function SummaryView(props){
                    // Then we can come back to JSX <tags>
             
                    /* TODO uncomment this at TW1.5, it won't work before because props.ingredinets is not set.
-                       renderIngredients(props.ingredients) */
+                       renderIngredients(props.ingredients, props.people) */
                 }
             </div>
     );
@@ -16,9 +16,9 @@ function SummaryView(props){
 
 /* For TW1.5. If you are at TW1.2, wait :) */
 /* This is an ordinary JS function, not a component. It will be invoked from the component above */
-function renderIngredients(ingredientArray){
+function renderIngredients(ingredientArray, people){
     function ingredientTableRowCB(ingr){
-        return <tr> <td>{ingr.name}</td>   <td>TODO aisle</td>  <td class="TODO">TODO qty {/* 2 decimals, use a CSS classs to align right */}</td>
+        return <tr> <td>{ingr.name}</td>   <td>TODO aisle</td>  <td class="TODO">TODO qty {/* multiply by number of people! Display with 2 decimals, use a CSS classs to align right */}</td>
                                                                                         <td> TODO unit </td></tr>;
     }
     
