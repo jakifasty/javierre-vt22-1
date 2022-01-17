@@ -18,8 +18,8 @@ function SummaryView(props){
 /* This is an ordinary JS function, not a component. It will be invoked from the component above */
 function renderIngredients(ingredientArray){
     function ingredientTableRowCB(ingr){
-        return <tr> <td>{ingr.name}</td>   <td>TODO aisle</td>  <td>TODO quantity</td>
-                    <td class="TODO">{/*TODO measurement units, with two decimals, use a CSS class to align right*/}</td>  </tr>;
+        return <tr> <td>{ingr.name}</td>   <td>TODO aisle</td>  <td class="TODO">TODO qty {/* 2 decimals, use a CSS classs to align right */}</td>
+                                                                                        <td> TODO unit </td></tr>;
     }
     
     
