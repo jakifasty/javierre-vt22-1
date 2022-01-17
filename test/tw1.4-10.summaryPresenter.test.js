@@ -75,7 +75,7 @@ describe("TW1.4 Model-View-Presenter", function() {
         expect(components[1].tag.toString()).to.equal(Summary.toString());
     });
 
-    it("Integration test: pressing UI buttons changes number in Model", function(){
+    it("Integration test: pressing UI buttons changes number in Model", async function(){
         window.React={createElement:h};
 
         let div= createUI();
@@ -86,14 +86,14 @@ describe("TW1.4 Model-View-Presenter", function() {
         expect(div.querySelector('span[title]').firstChild.textContent).to.equal("2");
         div.querySelectorAll("button")[0].click();
         expect(myModel.numberOfGuests).to.equal(1);
-        div= createUI();
 
-        render(<VueRoot />,div);
-        myModel= require("/src/vuejs/"+TEST_PREFIX+"VueRoot.js").proxyModel;
+        await new Promise(resolve => setTimeout(resolve));  // need to wait a bit for UI to update...   
+        expect(div.querySelector('span[title]').firstChild.textContent).to.equal("1");
 
-        div.querySelectorAll("button")[0].click();
-        expect(myModel.numberOfGuests).to.equal(1);
-        
+        div.querySelectorAll("button")[1].click();
+        expect(myModel.numberOfGuests).to.equal(2);
+        await new Promise(resolve => setTimeout(resolve));
+        expect(div.querySelector('span[title]').firstChild.textContent).to.equal("2");
     });
     
 });
