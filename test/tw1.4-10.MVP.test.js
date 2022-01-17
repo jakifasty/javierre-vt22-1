@@ -3,7 +3,7 @@ import { assert, expect, should } from 'chai';
 import createUI from "./createUI.js";
 import installOwnCreateElement from "./jsxCreateElement.js";
 
-var DinnerModel= require('../src/'+TEST_PREFIX+'DinnerModel.js').default;
+const DinnerModel= require('../src/'+TEST_PREFIX+'DinnerModel.js').default;
 
 const Summary= require('../src/vuejs/'+TEST_PREFIX+'summaryPresenter.js').default;
 const SummaryView= require('../src/views/'+TEST_PREFIX+'summaryView.js').default;
