@@ -31,7 +31,7 @@ describe("TW1.4 Model-View-Presenter", function() {
         Summary({model: new DinnerModel()});
 
         assert(window.lastJSXRender.tag);
-        expect(window.lastJSXRender.tag.toString()).to.equal(SummaryView.toString());
+        expect(window.lastJSXRender.tag.name).to.equal(SummaryView.name);
         expect(window.lastJSXRender.props);
         expect(window.lastJSXRender.props.people).to.equal(2);
     });
@@ -42,7 +42,7 @@ describe("TW1.4 Model-View-Presenter", function() {
         Sidebar({model: new DinnerModel()});
 
         assert(window.lastJSXRender.tag);
-        expect(window.lastJSXRender.tag.toString()).to.equal(SidebarView.toString());
+        expect(window.lastJSXRender.tag.name).to.equal(SidebarView.name);
         expect(window.lastJSXRender.props);
         expect(window.lastJSXRender.props.number).to.equal(2);
     });
@@ -71,8 +71,8 @@ describe("TW1.4 Model-View-Presenter", function() {
             return typeof(tag)=="function";
         });
         expect(components.length).to.be.gte(2);
-        expect(components[0].tag.toString()).to.equal(Sidebar.toString());
-        expect(components[1].tag.toString()).to.equal(Summary.toString());
+        expect(components[0].tag.name).to.equal(Sidebar.name);
+        expect(components[1].tag.name).to.equal(Summary.name);
     });
 
     it("Integration test: pressing UI buttons changes number in Model", async function(){
