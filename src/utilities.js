@@ -118,7 +118,8 @@ function menuPrice(dishesArray){
     // TODO set proper names to the callbacks!
     
     // TODO 1) call dishesArray.map() with callback1 as argument. This will return an array of prices.
-    // TODO 2) on the array of prices, call reduce() with the second calback. This will produce the total price, which you return
+    // TODO 2) on the array of prices, call reduce() with the second calback as first parameter, and 0 as second parameter (we compute the total starting from zero).
+    //        This will produce the total price, which you return
 }
 /*
   At this point, all of TW1.1 tests should pass!
