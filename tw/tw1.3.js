@@ -10,13 +10,14 @@ try{
 }catch(e){
     render(<div>Please define /src/views/sidebarView.js</div>,  document.getElementById('root'));
 }
-if(SidebarView)    
+if(SidebarView){
+    function numberChangeACB(nr){ console.log("user wants to change the number to ", nr);}
     render(
             <div>
-                <SidebarView number={5} dishes={[]} />
-                <SidebarView number={1} dishes={[]} />
+            <SidebarView number={5} dishes={[]}  onNumberChange={numberChangeACB} />
             </div>,
         document.getElementById('root')
     );
+}
 
     

@@ -19,8 +19,22 @@ describe("TW1.2 SidebarView", function() {
     });
 
     it("SidebarView shows its number prop", function(){
-        const div= createUI();
+        let div= createUI();
         render(<SidebarView number={4} dishes={[]}/>, div);
-        console.log(div);  // FIXME
+        assert.equal(div.querySelectorAll("button").length, 2);
+        assert.equal(div.querySelectorAll("button")[0].firstChild.textContent, "-");
+        assert.equal(div.querySelectorAll("button")[1].firstChild.textContent, "+");
+        assert.equal(div.querySelectorAll("button")[0].nextSibling.textContent, "4");
+
+    });
+    it("SidebarView minus button should be disabled if number prop is 1", function(){
+        let div= createUI();
+        render(<SidebarView number={1} dishes={[]}/>, div);
+        assert.equal(div.querySelectorAll("button").length, 2);
+        assert.equal(div.querySelectorAll("button")[0].firstChild.textContent, "-");
+        assert.equal(div.querySelectorAll("button")[0].disabled, true);
+        assert.equal(div.querySelectorAll("button")[1].firstChild.textContent, "+");
+        assert.equal(div.querySelectorAll("button")[0].nextSibling.textContent, "1");
+        
     });
 });
