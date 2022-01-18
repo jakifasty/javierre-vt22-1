@@ -48,9 +48,16 @@ describe("TW1.5 Array rendering", function() {
             }
             expect(tds.length).to.equal(4);
             expect(lookup[tds[0].textContent.trim()]);
-            expect(lookup[tds[0].textContent.trim()].aisle).to.equal(tds[1].textContent.trim());
-            expect(lookup[tds[0].textContent.trim()].unit).to.equal(tds[3].textContent.trim());
-            expect((lookup[tds[0].textContent.trim()].amount*ppl).toFixed(2)).to.equal(tds[2].textContent.trim());
+            expect(lookup[tds[0].textContent.trim()].aisle).to.equal(tds[1].textContent.trim(), "aisle must be shown in column 2");
+            expect(lookup[tds[0].textContent.trim()].unit).to.equal(tds[3].textContent.trim(), "measurement unit must be shown in last column");
+            expect((lookup[tds[0].textContent.trim()].amount*ppl).toFixed(2)).to.equal(tds[2].textContent.trim(), "amount must be shown in column 3, multiplied by number of guests");
+            expect(tds[2].textContent.trim()[tds[2].textContent.trim().length-3]).to.equal(".", "amount must be shown with two decimals, use (someExpr).toFixed(2)"); 
+            document.body.append(tds[2]); // we append the TD to the document, for style.css to take effect
+            try{
+                expect(window.getComputedStyle(tds[2])["text-align"]).to.equal("right", "align quantities to the right using CSS");
+            }finally{
+                document.body.lastElementChild.remove();
+            }
         });
     });
 
@@ -95,15 +102,23 @@ describe("TW1.5 Array rendering", function() {
         render(<SidebarView number={ppl} dishes={dishes}/>, div);
 
         [...div.querySelectorAll("tr")].forEach(function(tr, index, arr){
+            const tds= tr.querySelectorAll("td");            
+            expect(tds.length).to.equal(4, "dish table must have 4 columns");
+            expect(tds[3].textContent.trim()[tds[3].textContent.trim().length-3]).to.equal(".", "price and total must be shown with two decimals, use (someExpr).toFixed(2)");  
+            document.body.append(tds[3]);
+            try{  // we append the TD to the document, for style.css to take effect
+                expect(window.getComputedStyle(tds[3])["text-align"]).to.equal("right", "align dish prices and total to the right using CSS");
+            }finally{
+                document.body.lastElementChild.remove();
+            }            
             if(index==arr.length-1){
-                expect(tr.querySelectorAll("td")[3].textContent.trim()).to.equal((menuPrice(dishes)*ppl).toFixed(2));
+                expect(tds[3].textContent.trim()).to.equal((menuPrice(dishes)*ppl).toFixed(2), "last row must show total menu price multiplied by number of guests");
                 return;
             }
-            const tds= tr.querySelectorAll("td");            
-            expect(tds.length).to.equal(4);
             expect(lookup[tds[1].textContent.trim()]);
-            expect(lookup[tds[1].textContent.trim()].type).to.equal(tds[2].textContent.trim());
-            expect((lookup[tds[1].textContent.trim()].pricePerServing*ppl).toFixed(2)).to.equal(tds[3].textContent.trim());
+            expect(lookup[tds[1].textContent.trim()].type).to.equal(tds[2].textContent.trim(), "3rd column must show dish type");
+            expect((lookup[tds[1].textContent.trim()].pricePerServing*ppl).toFixed(2)).to.equal(tds[3].textContent.trim(), "last column must show total menu price multiplied by number of guests");
+
         });
     });
 
