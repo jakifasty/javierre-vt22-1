@@ -19,7 +19,7 @@ const dishesConst = [{
     }, {
         name: 'sugar',
         id: 1103,
-        aisle: 'baking',
+        aisle: 'Baking',
         amount: 7,
         unit: 'g',
     }, {
