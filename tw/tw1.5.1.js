@@ -7,6 +7,7 @@ const SidebarView=require("/src/views/"+TEST_PREFIX+"sidebarView.js").default;
 function getDishDetails(x){ return dishesConst.find(function(d){ return d.id===x;});}
 
 render(
-        <SidebarView number={3} dishes={[getDishDetails(200), getDishDetails(2), getDishDetails(100)]}/>,
+        <SidebarView number={3} dishes={[getDishDetails(200), getDishDetails(2), getDishDetails(100)]}
+              onNumberChange={function(){console.log("UI is not interactive, we only test the View here");}}/>,
     document.getElementById('root')
 );
