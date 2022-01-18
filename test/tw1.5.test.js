@@ -8,8 +8,13 @@ const DinnerModel= require('../src/'+TEST_PREFIX+'DinnerModel.js').default;
 const Summary= require('../src/vuejs/'+TEST_PREFIX+'summaryPresenter.js').default;
 const SummaryView= require('../src/views/'+TEST_PREFIX+'summaryView.js').default;
 
-const Sidebar= require('../src/vuejs/'+TEST_PREFIX+'sidebarPresenter.js').default;
-const SidebarView= require('../src/views/'+TEST_PREFIX+'sidebarView.js').default;
+let SidebarView;
+let Sidebar;
+const X= TEST_PREFIX;
+try{
+    SidebarView= require('../src/views/'+X+'sidebarView.js').default;
+    Sidebar= require('../src/vuejs/'+X+'sidebarPresenter.js').default;
+}catch(e){};
 
 const App= require('../src/views/'+TEST_PREFIX+'app.js').default;
 
@@ -27,7 +32,10 @@ function getDishDetails(x){ return dishesConst.find(function(d){ return d.id===x
 
 describe("TW1.5 Array rendering", function() {
     this.timeout(200000);  // increase to allow debugging during the test run
-    
+
+    before(function(){
+        if(!SidebarView || !Sidebar) this.skip();
+    });
 
     it("SummaryView table content", function(){
         window.React={createElement:h};
