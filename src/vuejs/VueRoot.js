@@ -1,4 +1,4 @@
-import DinnerModel from "../solved-DinnerModel.js";
+import DinnerModel from "../DinnerModel.js";
 import App from "../views/App.js";
 
 let proxyModel;
