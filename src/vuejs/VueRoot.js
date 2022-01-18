@@ -1,5 +1,5 @@
 import DinnerModel from "../DinnerModel.js";
-import App from "../views/App.js";
+import App from "../views/app.js";
 
 let proxyModel;
 const VueRoot={
