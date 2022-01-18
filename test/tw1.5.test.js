@@ -153,12 +153,14 @@ describe("TW1.5 Array rendering", function() {
                 expect(typeof window.lastJSXRender.props[handler]).to.equal("function");
                 window.lastJSXRender.props[handler]( getDishDetails(testId));
                 if(model.currentDish==testId){   // we called the handler that changes the currentDish, event if we don't know its name...
+                    expect(model.dishes.length).to.equal(3);
                     expect(model.dishes).to.include(getDishDetails(testId));
                     model.setCurrentDish();    // reset the current dish, to prepare for next forEach iteration
                 }
                 else{ // we called the handler that removes the dish, event if we don't know its name...
                     expect(model.dishes).to.not.include(getDishDetails(testId));
-                    expect(model.currentDish).to.not.equal(testId);
+                    expect(model.dishes.length).to.equal(2);
+                    expect(model.currentDish).to.be.undefined;
                     model.addToMenu(getDishDetails(testId));  // add back the removed dish, to prepare for next forEach iteration
                 }
             });
@@ -182,7 +184,6 @@ describe("TW1.5 Array rendering", function() {
         expect(div.querySelectorAll("button").length).to.equal(5, "There should be 5 buttons: +, - and 3 X for dishes");
         div.querySelectorAll("button")[4].click();
         expect(myModel.dishes.length).to.equal(2);
-        console.log(myModel.dishes);
         expect(myModel.dishes).to.not.include(getDishDetails(200));
 
         await new Promise(resolve => setTimeout(resolve));  // need to wait a bit for UI to update...
