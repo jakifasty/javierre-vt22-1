@@ -96,7 +96,7 @@ describe("TW1.5 Array rendering", function() {
 
         [...div.querySelectorAll("tr")].forEach(function(tr, index, arr){
             if(index==arr.length-1){
-                expect(tr.querySelectorAll("td")[3].textContent.trim()).to.equal(menuPrice(dishes).toFixed(2));
+                expect(tr.querySelectorAll("td")[3].textContent.trim()).to.equal((menuPrice(dishes)*ppl).toFixed(2));
                 return;
             }
             const tds= tr.querySelectorAll("td");            
