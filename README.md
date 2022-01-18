@@ -5,7 +5,7 @@ tutorial version 5
 
 2. after checkout execute
 ```
-npm init
+npm install
 ```
 3. to start your development server
 ```
