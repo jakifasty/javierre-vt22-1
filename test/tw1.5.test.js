@@ -111,7 +111,7 @@ describe("TW1.5 Array rendering", function() {
         window.React={createElement:h};
         const div= createUI();
         const ppl=3;
-        const dishes=[getDishDetails(2), getDishDetails(100), getDishDetails(200)];
+        const dishes=[getDishDetails(200), getDishDetails(100), getDishDetails(2), getDishDetails(1)];
         render(<SidebarView number={ppl} dishes={dishes}/>, div);
 
         const rows= [...div.querySelectorAll("tr")];  // ignore header
@@ -148,18 +148,20 @@ describe("TW1.5 Array rendering", function() {
             return !["number", "dishes", "onNumberChange"].includes(prop);
         });
         expect(twoHandlers.length).to.equal(2);
-        twoHandlers.forEach(function(handler){
-            expect(typeof window.lastJSXRender.props[handler]).to.equal("function");
-            window.lastJSXRender.props[handler]( getDishDetails(100));
-            if(model.currentDish==100){   // we called the handler that changes the currentDish, event if we don't know its name...
-                expect(model.dishes).to.include(getDishDetails(100));
-                model.setCurrentDish();    // reset the current dish, to prepare for next forEach iteration
-            }
-            else{ // we called the handler that removes the dish, event if we don't know its name...
-                expect(model.dishes).to.not.include(getDishDetails(100));
-                expect(model.currentDish).to.not.equal(100);
-                model.addToMenu(getDishDetails(100));  // add back the removed dish, to prepare for next forEach iteration
-            }
+        [1, 100, 201].forEach(function(testId){
+            twoHandlers.forEach(function(handler){
+                expect(typeof window.lastJSXRender.props[handler]).to.equal("function");
+                window.lastJSXRender.props[handler]( getDishDetails(testId));
+                if(model.currentDish==testId){   // we called the handler that changes the currentDish, event if we don't know its name...
+                    expect(model.dishes).to.include(getDishDetails(testId));
+                    model.setCurrentDish();    // reset the current dish, to prepare for next forEach iteration
+                }
+                else{ // we called the handler that removes the dish, event if we don't know its name...
+                    expect(model.dishes).to.not.include(getDishDetails(testId));
+                    expect(model.currentDish).to.not.equal(testId);
+                    model.addToMenu(getDishDetails(testId));  // add back the removed dish, to prepare for next forEach iteration
+                }
+            });
         });
     });
     it("Integration test: pressing UI X buttons removes dishes in Model", async function(){
@@ -180,7 +182,8 @@ describe("TW1.5 Array rendering", function() {
         expect(div.querySelectorAll("button").length).to.equal(5, "There should be 5 buttons: +, - and 3 X for dishes");
         div.querySelectorAll("button")[4].click();
         expect(myModel.dishes.length).to.equal(2);
-        expect(myModel.dishes.length).to.not.include(getDishDetails(100));
+        console.log(myModel.dishes);
+        expect(myModel.dishes).to.not.include(getDishDetails(200));
 
         await new Promise(resolve => setTimeout(resolve));  // need to wait a bit for UI to update...
         expect(div.querySelectorAll("button").length).to.equal(4, "There should be 4 buttons after deletion: +, - and 2 X for dishes");
@@ -202,7 +205,7 @@ describe("TW1.5 Array rendering", function() {
         await new Promise(resolve => setTimeout(resolve));  // need to wait a bit for UI to update...
         
         expect(div.querySelectorAll("a").length).to.equal(3, "There should be 3 links, one for each dish");
-        div.querySelectorAll("a")[2].click();
+        div.querySelectorAll("a")[1].click();
         expect(myModel.currentDish).to.equal(100);
     });
 });
