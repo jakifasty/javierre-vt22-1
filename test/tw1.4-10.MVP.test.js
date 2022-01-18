@@ -8,14 +8,19 @@ const DinnerModel= require('../src/'+TEST_PREFIX+'DinnerModel.js').default;
 const Summary= require('../src/vuejs/'+TEST_PREFIX+'summaryPresenter.js').default;
 const SummaryView= require('../src/views/'+TEST_PREFIX+'summaryView.js').default;
 
-const Sidebar= require('../src/vuejs/'+TEST_PREFIX+'sidebarPresenter.js').default;
-const SidebarView= require('../src/views/'+TEST_PREFIX+'sidebarView.js').default;
-
 const App= require('../src/views/'+TEST_PREFIX+'app.js').default;
 
 const VueRoot=require("/src/vuejs/"+TEST_PREFIX+"VueRoot.js").default;
 
 const {render, h}= require("vue");
+
+let SidebarView;
+let Sidebar;
+const X= TEST_PREFIX;
+try{
+    SidebarView= require('../src/views/'+X+'sidebarView.js').default;
+    Sidebar= require('../src/vuejs/'+X+'sidebarPresenter.js').default;
+}catch(e){};
 
 function traverseJSX({tag, props, children}=window.lastJSXRender){
     if(!children)
@@ -25,7 +30,10 @@ function traverseJSX({tag, props, children}=window.lastJSXRender){
 describe("TW1.4 Model-View-Presenter", function() {
     this.timeout(200000);  // increase to allow debugging during the test run
     
-
+    before(function(){
+        if(!SidebarView || !Sidebar) this.skip();
+    });
+    
     it("Vue Summary presenter renders SummaryView with people prop", function(){
         installOwnCreateElement();
         Summary({model: new DinnerModel()});
