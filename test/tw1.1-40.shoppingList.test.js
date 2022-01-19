@@ -21,15 +21,16 @@ const dishes= [
 
 describe("TW1.1 shoppingList", function() {
     it("should add up ingredient amounts", function(){
+        this.timeout(200000);  // increase to allow debugging during the test run
+
         const result= shoppingList(dishes);
         
-        return assert.equal(result.length, 3)
-            && assert.equal(result.filter(function(i){ return i.id=12;}).length, 1)
-            && assert.equal(result.filter(function(i){ return i.id=12;})[0].amount, 13.5)
-            && assert.equal(result.filter(function(i){ return i.id=13;}).length, 1)
-            && assert.equal(result.filter(function(i){ return i.id=13;})[0].amount, 63)
-            && assert.equal(result.filter(function(i){ return i.id=14;}).length, 1)
-            && assert.equal(result.filter(function(i){ return i.id=14;})[0].amount, 10)
-        ;
+        assert.equal(result.length, 3);
+        assert.equal(result.filter(function(i){ return i.id==12;}).length, 1);
+        assert.equal(result.filter(function(i){ return i.id==12;})[0].amount, 13.5);
+        assert.equal(result.filter(function(i){ return i.id==13;}).length, 1);
+        assert.equal(result.filter(function(i){ return i.id==13;})[0].amount, 63);
+        assert.equal(result.filter(function(i){ return i.id==14;}).length, 1);
+        assert.equal(result.filter(function(i){ return i.id==14;})[0].amount, 10);
     });
 });

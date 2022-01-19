@@ -16,11 +16,10 @@ describe("TW1.1 dishType", function() {
     });
 
     it("knownTypeCB recognizes only starter, main course, dessert", function(){
-        return assert.equal(isKnownTypeCB("starter"), true)
-            && assert.equal(isKnownTypeCB("main course"), true)
-            && assert.equal(isKnownTypeCB("dessert"), true)
-            && assert.equal(isKnownTypeCB("appetizer"), false)
-        ;
+        assert.equal(isKnownTypeCB("starter"), true);
+        assert.equal(isKnownTypeCB("main course"), true);
+        assert.equal(isKnownTypeCB("dessert"), true);
+        assert.equal(isKnownTypeCB("appetizer"), false);
     });
     
     it("dishType returns a known dish type", function(){ return assert.equal(dishType(dishesConst[4]), "main course");});

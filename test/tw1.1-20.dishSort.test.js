@@ -9,16 +9,16 @@ describe("TW1.1 sortDishes", function() {
         const sorted= sortDishes(
             [dishesConst[4], dishesConst[6], dishesConst[2], dishesConst[7]]
         );
-        return assert.equal(sorted.length, 4) 
-            && assert.equal(sorted[0], dishesConst[7]) 
-            && assert.equal(sorted[1], dishesConst[2])
-            && assert.equal(sorted[2], dishesConst[4])
-            && assert.equal(sorted[3], dishesConst[6]);
+        assert.equal(sorted.length, 4);
+        assert.equal(sorted[0], dishesConst[7]);
+        assert.equal(sorted[1], dishesConst[2]);
+        assert.equal(sorted[2], dishesConst[4]);
+        assert.equal(sorted[3], dishesConst[6]);
     });
     it("sorted array should not be the same object as original array. Use e.g. spread syntax [...array]", function(){
         const array= [dishesConst[4], dishesConst[6], dishesConst[2], dishesConst[7]];
         const sorted= sortDishes(array);
-        return assert.equal(sorted.length, 4)
-            && assert.not.equal(sorted, array);
+        assert.equal(sorted.length, 4);
+        expect(sorted).to.not.equal(array);
     });
 });
