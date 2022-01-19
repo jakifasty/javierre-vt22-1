@@ -24,6 +24,7 @@ describe("TW1.1 sortIngredients", function() {
     it("sorted array should not be the same object as original array. Use e.g. spread syntax [...array]", function(){
         const ingredients= [...ingredientsConst];
         const sorted= sortIngredients(ingredients);
+
         assert.equal(sorted.length, ingredients.length);
         expect(sorted).to.not.equal(ingredients);
     });
