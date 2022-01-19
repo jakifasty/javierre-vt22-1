@@ -9,20 +9,22 @@ const ingredientsConst= [
 ];
 
 describe("TW1.1 sortIngredients", function() {
+    this.timeout(200000);  // increase to allow debugging during the test run
+    
     it("should sort by aisle first, then by name", function(){
         const ingredients= [...ingredientsConst];
         const sorted= sortIngredients(ingredients);
         
-        return assert.equal(sorted.length, ingredients.length) 
-            && assert.equal(sorted[0], ingredients[3]) 
-            && assert.equal(sorted[1], ingredients[1])
-            && assert.equal(sorted[2], ingredients[2])
-            && assert.equal(sorted[3], ingredients[0]);
+        assert.equal(sorted.length, ingredients.length) ;
+        assert.equal(sorted[0], ingredients[3]) ;
+        assert.equal(sorted[1], ingredients[1]);
+        assert.equal(sorted[2], ingredients[2]);
+        assert.equal(sorted[3], ingredients[0]);
     });
     it("sorted array should not be the same object as original array. Use e.g. spread syntax [...array]", function(){
         const ingredients= [...ingredientsConst];
         const sorted= sortIngredients(ingredients);
-        return assert.equal(sorted.length, ingredients.length)
-            && assert.not.equal(sorted, ingredients);
+        assert.equal(sorted.length, ingredients.length);
+        expect(sorted).to.not.equal(ingredients);
     });
 });
