@@ -31,7 +31,7 @@ class DinnerModel{
             // This will keep the dish when we filter below.
             // That is, we will not keep the dish that has the same id as dishToRemove (if any)
         }
-        return this.dishes.filter(/*TODO pass the callback!*/);
+        this.dishes= this.dishes.filter(/*TODO pass the callback!*/);
         // the test "can remove dishes" should pass
     }
     /* 
