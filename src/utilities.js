@@ -11,18 +11,23 @@
 const knownTypes=["starter", "main course", "dessert"];
 
 function isKnownTypeCB(type){
-    // hint: you can use knownTypes.indexOf(TODO) and check if it's not negative. Don't forget the return keyword.
-    // OR 
-    // hint: knownTypes.find(anotherCB) . In this case you will have to define
-    // function anotherCB(knownType) inside isKnownType, so that it has access to the `type` argument.
 
-    // hint: once this function is written, a test should pass! Use the tests to check your work.
+    if ( knownTypes.indexOf(type) < 0 ) {return false}  //this means that this is not negative
+    else {return true};
+
+    //OR knownTypes.filter(knownTypes.indexOf(type))
+
+    /*function anotherCB(knownType){
+        if (knownTypes.indexOf(knownTypes.id) > 0) return 
+        return knownTypes.filter(knownType);
+    }
+    knownTypes.find(anotherCB) */
 }
 
 /* Now pass the callback to `Array.filter()` */
 function dishType(dish){
     if(dish.dishTypes !== undefined){  // or more general: if(dish.dishTypes)   , see JS truthy / falsy
-        const tp= dish.dishTypes.filter(/* TODO pass the callback */);
+        const tp = dish.dishTypes.filter(isKnownTypeCB); // pass the callback, i.e dishType
         if(tp.length > 0)
             return tp[0];
     }
@@ -34,13 +39,15 @@ function dishType(dish){
    Write a sort() comparator callback that compares dishes by their type, 
    so that all starters come before main courses and main courses come before desserts 
 */
-function __give_a_proper_name_CB(dishA, dishB){
-    // hint: use dishType(dishA) and dishType(dishB)
-    // hint: use Array.indexOf() to get the index of the type within `knownTypes`
-    // once you know the integer indices, simply compare them
-    // return negative, 0 or positive, see Array.sort() documentation
-}
+function compareDishesCB(dishA, dishB){ //__give_a_proper_name_CB
 
+    if(knownTypes.indexOf(dishType(dishA)) < knownTypes.indexOf(dishType(dishB))) //these line compares both dishes
+        return -1;
+    if(knownTypes.indexOf(dishType(dishA)) > knownTypes.indexOf(dishType(dishB)))
+        return 1;
+    else
+        return 0;
+}
 
 /* 
    We sort the dishes using the comparator above.
@@ -48,20 +55,33 @@ function __give_a_proper_name_CB(dishA, dishB){
    To avoid that, use [...dishes] which creates a new array and spreads the elements of the `dishes` array.
 */
 function sortDishes(dishes){
-    // hint: use someArray.sort(comparator_above_CB)
-    // check the tests, look for sortDishes!
+    return dishes = [... dishes.sort(compareDishesCB)];
+}
+
+function compareIngredientsByAisleAndNameCB(ingredientA, ingredientB){ //__give_a_proper_name_CB
+
+    if (ingredientA["aisle"] < ingredientB["aisle"])
+        return -1;
+    if (ingredientA["aisle"] > ingredientB["aisle"])
+        return 1;
+    else
+        if (ingredientA["name"] < ingredientB["name"]) 
+            return -1;
+        if (ingredientA["name"] > ingredientB["name"])
+            return 1;
+        return 0;
+    return 0;
 }
 
 /* 
    Given an array of ingredients, we would like to order them by supermarket aisle. If the aisles are the same, we order them by name 
    Each ingredient object has aisle and name properties.
-
    You know the drill: write a comparator callback, then pass it to Array.sort(). 
-
    Remember that sort changes the original array and we don't want that.
 */
 function sortIngredients(ingredients){
-    // TODO
+    const ingredientsRec = [...ingredients];
+    return ingredients = [...ingredientsRec.sort(compareIngredientsByAisleAndNameCB)];
 }
 
 /* 
@@ -81,7 +101,7 @@ function shoppingList(dishes){
     // ingredientCB must be defined inside shopingList() because it needs access to `result`
     // you will often need to define a callback inside the function where it is used, so it has access to arguments and other variables
     function ingredientCB(ingredient){
-        if(result[ingredient.id] === undefined){  // more general: !result[ingredient.id]
+        if(result[ingredient.id] === undefined){  // more general: !result[ingredient.id]  --> if(!result[ingredient.id])
             // since result[ingredient.id] is not defined, it means that the ingredient is not taken into account yet
             // so we associate the ingredient with the ID
             result[ingredient.id]={...ingredient};
@@ -100,39 +120,44 @@ function shoppingList(dishes){
         }
     }
 
-    const arrayOfIngredientArrays= dishes.map(/*TODO pass the callback that transforms a dish to its ingredients */);
+    /*const arrayOfIngredientArrays= dishes.map(keepJustIngredientsCB); //or, if not, try ingredientCB
     const allIngredients= arrayOfIngredientArrays.flat();    
-    allIngredients.forEach(/* TODO: pass the callback that treats an ingredient */);
+    allIngredients.forEach(ingredientCB); */
 
-    // Note: the 3 lines above can be written as a function chain:
-    // dishes.map(callback1).flat().forEach(callback2);
+    // Note: the 3 lines above can be written as a function chain: dishes.map(callback1).flat().forEach(callback2);
 
-    // now we transform the result object into an array: we drop the keys and only keep the values
-    return Object.values(result);
+    dishes.map(keepJustIngredientsCB).flat().forEach(ingredientCB);
+
+    return Object.values(result); // now we transform the result object into an array: we drop the keys and only keep the values
 }
 
 /* Given a dish array, calculate their total price with a map-reduce callback exercise */
 function menuPrice(dishesArray){
-    // TODO callback1: given a dish, return its price. Look in /test/dishesConst.js to find out the name of the dish price property. 
-    // TODO callback2, with two parameters. Return the sum of the parameters
-    // TODO set proper names to the callbacks!
+
+    //callback1: given a dish, return its price. Look in /test/dishesConst.js to find out the name of the dish price property.
+    function priceOfDishCB(dish){
+        return dish["pricePerServing"];
+    }
+
+    //callback2, with two parameters. Return the sum of the parameters
+    function sumParamsCB(param1, param2){
+        return param1 + param2;
+    }
     
-    // TODO 1) call dishesArray.map() with callback1 as argument. This will return an array of prices.
-    // TODO 2) on the array of prices, call reduce() with the second calback as first parameter, and 0 as second parameter (we compute the total starting from zero).
-    //        This will produce the total price, which you return
+    //dishesArray.map() will return an array of prices.
+    const dishesArrayRec = [... dishesArray];
+    const arrayOfPrices = dishesArrayRec.map(priceOfDishCB);
+
+    //reduce() with the second callback as first parameter, and 0 as second parameter (we compute the total starting from zero).
+    const sumOfPricesOfArray = arrayOfPrices.reduce(sumParamsCB, 0); //This will produce the total price, which you return
+    return sumOfPricesOfArray;
+
 }
 /*
   At this point, all of TW1.1 tests should pass!
 */
 
 /*
-  Optional: once you are done with the whole TW1, 
-  if you want to learn more functional programming, you may want to rewrite shoppingList(dishes) 
-  The unit tests will help you determine if your code is equivalent with the above.
-
-  Problem: ingredientCB is not a pure function because it has a side effect: it changes the result object. 
-  Instead, you can use reduce to produce the result object.
-
   allIngredients.reduce(amountReducerCB, {}), i.e. use an object as accumulator.
   
   To create new objects in the reducer CB, you can use either spread syntax {...object, other:property}  or Object.assign() 
