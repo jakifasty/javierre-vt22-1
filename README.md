@@ -1,5 +1,3 @@
-Code of a project consisting in the implementation of dinner manager. Allows to search, add and remove dishes to a menu in Dinner Model
-
 # npm-tutorial
 tutorial version 5
 
